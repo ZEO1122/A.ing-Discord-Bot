@@ -12,6 +12,9 @@ AI 학술동아리를 위한 주간 논문 뉴스와 딥러닝 개념 알림이�
   나머지 33편 집필과 콘텐츠 승인, 학기 시작일·시험 기간 확정이 남아 있다.
 - 개념 콘텐츠는 미리 작성한 Markdown을 빌드해 배포한다. 발송 시 OpenAI/GitHub 조회 없음.
 
+뉴스는 `DISCORD_WEBHOOK_URL`, 개념은 `CONCEPT_WEBHOOK_URL` 전용 채널로 발송한다.
+개념 Webhook이 없으면 발송을 차단한다. [채널 설정](docs/CONCEPT_NOTIFICATIONS.md#채널-분리-설정)을 참고한다.
+
 ## 시작하기
 
 Node 24를 사용한다. Markdown 예제 검증은 Python 3와 NumPy를 사용한다.

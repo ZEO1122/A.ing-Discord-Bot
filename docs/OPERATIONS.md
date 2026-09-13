@@ -1,3 +1,5 @@
+> 채널 분리: 뉴스는 DISCORD_WEBHOOK_URL, 개념 테스트·예약 발송은 CONCEPT_WEBHOOK_URL만 사용합니다. 개념 Secret 등록: `npm run cf:secrets -- --concept`.
+
 > 개념 알림 신규 구현: [Markdown 기반 36회 과정](CONCEPT_NOTIFICATIONS.md). 대표 3편·검증/미리보기·학기 일정 고정 구현, 월·수·금 09:00 KST. 전체 집필과 승인 전이며 자동 운영은 비활성입니다.
 
 > 현재 주간 HF 상위 3편 파이프라인과 구현 상태: [Cloudflare 주간 알림](CLOUDFLARE_WEEKLY_PIPELINE.md). 아래 이전 운영 설명보다 이 문서를 우선합니다.

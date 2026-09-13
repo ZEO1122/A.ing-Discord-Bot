@@ -11,7 +11,6 @@ export interface ConceptEnv {
   CONCEPT_TEST_ENABLED?:string;
   CONCEPT_SCHEDULE_ENABLED?:string;
   CONCEPT_WEBHOOK_URL?:string;
-  DISCORD_WEBHOOK_URL?:string;
 }
 export async function sendConcept(db:D1Database,key:string,lesson:ConceptLesson,webhook:string){
   const destination=webhookUrl(webhook);
@@ -83,9 +82,11 @@ export async function conceptRoute(request:Request,env:ConceptEnv):Promise<Respo
       const lesson=conceptBundle.lessons.find(l=>l.id===match[2]);if(!lesson)return json({error:'not_found'},404);
       if(match[1]==='preview'&&request.method==='GET')return json(lesson.payload);
       if(match[1]==='test'&&request.method==='POST'){
-        const testWebhook=env.CONCEPT_WEBHOOK_URL??env.DISCORD_WEBHOOK_URL;
-        if(env.CONCEPT_TEST_ENABLED!=='true'||!testWebhook)return json({error:'concept_test_disabled'},403);
-        return json(await sendConcept(env.DB,`test:${lesson.hash}`,lesson,testWebhook));
+        const testWebhook=env.CONCEPT_WEBHOOK_URL;
+        if(env.CONCEPT_TEST_ENABLED!=='true')return json({error:'concept_test_disabled'},403);
+        if(!testWebhook)return json({error:'concept_webhook_missing'},409);
+        const webhookId=webhookUrl(testWebhook).pathname.split('/')[3];
+        return json(await sendConcept(env.DB,`test:${webhookId}:${lesson.hash}`,lesson,testWebhook));
       }
     }
     if(path==='/concepts/semesters'&&request.method==='POST'){

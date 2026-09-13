@@ -62,3 +62,19 @@ it('uses the frozen payload, allows semester rotation, and blocks late catch-up 
  await runConceptSchedule(enabled,new Date(input.slots[0].scheduled_at));
  expect(fetch).toHaveBeenCalledTimes(2);
 });
+it('never falls back to the news webhook and scopes test deduplication to the dedicated webhook',async()=>{
+ const fetch=vi.fn(async()=>Response.json({id:'12345',channel_id:'67890'}));vi.stubGlobal('fetch',fetch);
+ const request=()=>new Request('https://fixture.test/concepts/test/'+first.id,{method:'POST',headers:{Authorization:`Bearer ${bindings.ADMIN_TOKEN}`}});
+ const enabled={...bindings,CONCEPT_TEST_ENABLED:'true',CONCEPT_WEBHOOK_URL:undefined,DISCORD_WEBHOOK_URL:webhook};
+ const missing=await worker.fetch(request(),enabled);
+ expect(missing.status).toBe(409);expect(await missing.json()).toEqual({error:'concept_webhook_missing'});
+ expect(fetch).not.toHaveBeenCalled();
+ const conceptWebhook='https://discord.com/api/webhooks/456/concept_fixture';
+ await worker.fetch(request(),{...enabled,CONCEPT_WEBHOOK_URL:conceptWebhook});
+ await worker.fetch(request(),{...enabled,CONCEPT_WEBHOOK_URL:conceptWebhook});
+ expect(fetch).toHaveBeenCalledTimes(1);
+ expect(new URL(fetch.mock.calls[0][0] as string).pathname).toBe('/api/webhooks/456/concept_fixture');
+ await worker.fetch(request(),{...enabled,CONCEPT_WEBHOOK_URL:'https://discord.com/api/webhooks/789/another_fixture'});
+ expect(fetch).toHaveBeenCalledTimes(2);
+ await expect(runConceptSchedule({...enabled,CONCEPT_SCHEDULE_ENABLED:'true'},new Date())).rejects.toThrow('concept_webhook_missing');
+});

@@ -124,9 +124,8 @@ CONCEPT_SCHEDULE_ENABLED=false를 유지한다.
 학기 등록 본문은 id, release_hash, slots(sequence, lesson_id, scheduled_at)를 포함한다.
 시험 일정 등 원본 설정은 Git에서 관리하고 확정 UTC 슬롯을 D1에 등록한다.
 
-CONCEPT_WEBHOOK_URL은 실제 개념 채널용 별도 Secret이다. 테스트 경로만 이 값이 없으면
-사용자가 확인한 기존 DISCORD_WEBHOOK_URL을 사용한다. 자동 스케줄 경로는 별도 Secret을
-요구한다. 실제 URL과 토큰을 YAML/Markdown/빌드 데이터에 넣지 않는다.
+CONCEPT_WEBHOOK_URL은 개념 채널 전용 Secret이다. 테스트와 자동 발송 모두 이 값이
+필수이며 DISCORD_WEBHOOK_URL(뉴스 채널)로 대체하지 않는다. 실제 URL과 토큰을 YAML/Markdown/빌드 데이터에 넣지 않는다.
 
 ## 다음 단계
 
@@ -147,7 +146,7 @@ npm run content:remote -- --lesson dl-foundations-01
 npm run content:remote -- --lesson dl-foundations-01 --send
 ```
 
-send는 테스트 게이트가 활성화되어야 하며 같은 내용 해시의 재요청은 기존 Discord ID를
+send는 테스트 게이트가 활성화되어야 하며 같은 Webhook ID와 내용 해시의 재요청은 기존 Discord ID를
 반환한다. 이 단계는 API 없이 정적 Markdown을 발행하는 경로를 검증한다.
 
 ## 원격 검증 결과 (2026-09-13)
@@ -161,3 +160,12 @@ send는 테스트 게이트가 활성화되어야 하며 같은 내용 해시의
 - 콘텐츠 테스트 12개, Cloudflare 테스트 47개, 대표 콘텐츠 Python 예제 3개가 통과했다.
 - 검증 후 테스트·자동 발송 게이트를 모두 false로 복구하여 배포했다.
   배포 버전: d57aaa4a-24cb-4d50-9122-9510ce4aef78.
+
+## 채널 분리 설정
+
+Discord 개념 채널의 채널 편집 → 연동 → Webhook에서 전용 URL을 만들고, 로컬 .env의
+CONCEPT_WEBHOOK_URL에 저장한다. 뉴스용 DISCORD_WEBHOOK_URL은 그대로 유지한다.
+`npm run cf:secrets -- --concept`으로 개념 Secret만 등록한다. URL은 출력하지 않는다.
+기존 채널에 게시한 메시지와 발송 기록은 유지한다. 테스트 중복 키는 Webhook ID와
+내용 해시를 사용하므로 새 Webhook에서는 같은 콘텐츠를 검증할 수 있다. 자동 학기 발송의
+중복 키는 학기·회차 그대로이며 채널 변경만으로 이미 보낸 회차를 다시 보내지 않는다.
