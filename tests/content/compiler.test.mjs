@@ -7,8 +7,8 @@ import {parseLesson,loadCourse,yaml,validateCatalog,sha256} from '../../scripts/
 const dir='content/dl-foundations';
 const catalog=yaml(await readFile(`${dir}/curriculum.yaml`,'utf8'));
 const markdown=await readFile(`${dir}/${catalog.lessons[0].file}`,'utf8');
-test('validates the actual 36-lesson dependency graph and three complete sample payloads',async()=>{
- const course=await loadCourse(dir);assert.equal(course.lessons.length,3);assert.equal(course.missing.length,33);
+test('validates the actual 36-lesson dependency graph and 36 complete draft payloads',async()=>{
+ const course=await loadCourse(dir);assert.equal(course.lessons.length,36);assert.equal(course.missing.length,0);
  assert.equal(course.production_ready,false);assert.equal(course.lessons[0].payload.embeds[0].fields.length,8);
  assert.equal(course.lessons[0].payload.content,undefined);assert.deepEqual(course.lessons[0].payload.allowed_mentions,{parse:[]});
 });

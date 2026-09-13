@@ -24,7 +24,7 @@
     "content:preview": "node scripts/content/cli.mjs preview",
     "content:schedule": "node scripts/content/cli.mjs schedule",
     "content:test": "node --test tests/content/*.test.mjs",
-    "content:examples": "python3 scripts/content/check_examples.py",
+    "content:examples": "python3 scripts/content/check_examples.py && python3 scripts/content/check_curriculum_examples.py",
     "cf:deploy": "npm run content:build && wrangler deploy --config cloudflare/wrangler.jsonc",
     "content:remote": "node scripts/content/remote.mjs"
   },

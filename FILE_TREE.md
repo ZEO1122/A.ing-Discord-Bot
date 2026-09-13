@@ -61,19 +61,55 @@
     cli.mjs
     schedule.mjs
     check_examples.py
+    check_curriculum_examples.py
     remote.mjs
   tests/content/
     compiler.test.mjs
     schedule.test.mjs
   docs/CONCEPT_NOTIFICATIONS.md
+  docs/CONCEPT_CONTENT_REVIEW.md
   README.md
   content/
     dl-foundations/
       curriculum.yaml
       reviews.yaml
+      README.md
       lessons/01-tensors-and-shapes.md
+      lessons/02-matmul-and-broadcasting.md
+      lessons/03-parameters-and-forward.md
+      lessons/04-linear-layer.md
+      lessons/05-activation-purpose.md
+      lessons/06-activation-comparison.md
+      lessons/07-mse.md
+      lessons/08-logits-and-softmax.md
+      lessons/09-cross-entropy.md
+      lessons/10-gradient.md
+      lessons/11-chain-rule.md
       lessons/12-backpropagation.md
+      lessons/13-gradient-descent.md
+      lessons/14-mini-batch.md
+      lessons/15-training-loop.md
+      lessons/16-data-splits.md
+      lessons/17-learning-curves.md
+      lessons/18-metrics.md
+      lessons/19-weight-decay.md
+      lessons/20-dropout.md
+      lessons/21-early-stopping.md
+      lessons/22-momentum.md
+      lessons/23-adam.md
+      lessons/24-lr-schedule.md
+      lessons/25-initialization.md
+      lessons/26-normalization.md
       lessons/27-training-debugging.md
+      lessons/28-convolution.md
+      lessons/29-receptive-field.md
+      lessons/30-residual-connection.md
+      lessons/31-rnn.md
+      lessons/32-bptt.md
+      lessons/33-gated-rnn.md
+      lessons/34-attention.md
+      lessons/35-self-attention.md
+      lessons/36-transformer.md
     concepts/
       CONCEPT_BATCH_PROMPT.md
       history/

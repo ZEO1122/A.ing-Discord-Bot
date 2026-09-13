@@ -216,9 +216,10 @@ npm run cf:probe -- --ids 2609.09143,2609.10745,2609.10445
 
 ## Markdown concept notifications (user approved)
 
-- Current scope: 36-entry curriculum, three representative draft lessons, local validation/preview,
+- Current scope: 36-entry curriculum, all 36 draft lessons, local validation/preview,
   static Worker payloads and semester/delivery D1 scaffolding. Read docs/CONCEPT_NOTIFICATIONS.md.
-- User confirmed Monday/Wednesday/Friday 09:00 Asia/Seoul and existing test Discord channel.
+- User confirmed Monday/Wednesday/Friday 09:00 Asia/Seoul. Concepts use the dedicated
+  CONCEPT_WEBHOOK_URL, never the news DISCORD_WEBHOOK_URL.
   Semester start/exam dates are not confirmed. Do not activate cron based on example.yaml.
 - New GitHub destination is ZEO1122/A.ing-Discord-Bot (public, initially empty).
   Do not push historical commits from the old repo: historical secret patterns were detected.
@@ -226,7 +227,7 @@ npm run cf:probe -- --ids 2609.09143,2609.10745,2609.10445
 - Commands: npm run content:validate; npm run content:test; npm run content:examples;
   npm run content:preview; npm run content:build; npm run content:schedule -- config/semesters/example.yaml.
 - Full release check: npm run content:build -- --production. Requires all 36 reviewed lessons.
-- content:examples explicitly executes only the three known sample code blocks using Python 3 + NumPy.
+- content:examples executes the internal sample checks and 31 worked-example arithmetic groups using Python 3 + NumPy. These checks are separate from public Markdown; compare their constants when reviewing content.
 - Rebuild before deploy: npm run cf:deploy. Keep CONCEPT_TEST_ENABLED and CONCEPT_SCHEDULE_ENABLED
   false after explicit test runs. Tests may post drafts only to the confirmed test destination.
 - Preserve question-only discussion content separately from any future graded quiz data.
