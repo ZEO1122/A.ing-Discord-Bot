@@ -1,93 +1,54 @@
-# One-Page Operations
+# 한 장 운영 안내
 
-이 문서는 이 저장소를 처음 맡는 운영자가 **바로 따라할 수 있도록** 핵심 절차만 1페이지로 요약한 문서다.
+확인일: 2026-09-13. 새 담당자가 먼저 읽는 문서다.
 
-## 1. 이 프로젝트가 하는 일
+## 지금 상태
 
-- 평일 오전 9시 KST: concept 브리핑 1개 자동 게시
-- 월요일 오전 9시 KST: 채널별 관심분야에 맞는 trend 브리핑 자동 게시
-- 실행 방식: **Google Apps Script + Discord Webhook**
+- Cloudflare Worker + Workflows + D1으로 운영한다. GAS·상시 서버·GitHub Actions는 현재 실행 경로가 아니다.
+- 뉴스: HF 주간 상위 3편 → OpenAI 요약 → 뉴스 Discord 채널.
+- 개념: Markdown 36편 → 정적 빌드 → 개념 Discord 채널. 발송 시 API 비용 없음.
+- 모든 발송·예약 게이트 false, cron 없음. 36편 draft, 학기 시작일 미정.
 
-## 2. 먼저 확인할 파일
+## 할 일별 문서
 
-- 서버 연결: `docs/SERVER_SETUP_GUIDE.md`
-- 유지보수: `docs/MAINTENANCE_GUIDE.md`
-- 장애 대응: `docs/OPERATIONS.md`
-- concept 순서: `content/concepts/manifest.json`
-- concept 진행 상태: Script Properties
-- 채널별 관심분야: `config/channel_interest_map.json`
-- trend 중복 방지 이력: Google Sheets `trend_history`
+| 할 일 | 읽을 문서 |
+| --- | --- |
+| 개인 계정에서 동아리 계정으로 이전 | [계정 이전](ACCOUNT_MIGRATION.md) |
+| 글·그림·일정·모델 수정 | [유지보수](MAINTENANCE_GUIDE.md) |
+| 알림 실패·중복·DB 복구 | [운영·장애 대응](OPERATIONS.md) |
+| 개념 원고 규칙 | [개념 알림 규격](CONCEPT_NOTIFICATIONS.md) |
+| 뉴스 생성·발송 규칙 | [주간 파이프라인](CLOUDFLARE_WEEKLY_PIPELINE.md) |
 
-## 3. Apps Script 설정값
+## 수정 후 기본 확인
 
-반드시 있어야 하는 값:
-- `DISCORD_WEBHOOK_URL`
-- `DISCORD_WEBHOOK_MAP_JSON`
-- `OPENAI_API_KEY`
-- `OPENAI_MODEL`
-- `GITHUB_RAW_BASE_URL`
-- `CONCEPT_MANIFEST_PATH`
-- `CHANNEL_MAP_PATH`
-- `TREND_HISTORY_SHEET_ID`
-- `TREND_HISTORY_SHEET_NAME`
+```bash
+npm ci
+npm run content:validate
+npm run content:test
+npm run content:examples
+npm run content:preview
+npm run content:build
+npm run cf:typecheck
+npm run cf:test
+npm run cf:build
+```
 
-## 4. concept 운영 방법
+미리보기: `artifacts/concepts/preview.html`. Git push와 Worker 배포는 별도다. 실제 배포는 계정·변경 내용을 확인한 뒤 `npm run cf:deploy`. 운영 시작은 전체 검수와 일정 활성화 검증이 추가로 필요하다.
 
-### concept 추가
-1. `content/concepts/dl-basics/`에 새 `.md` 파일 추가
-2. `content/concepts/manifest.json` 마지막에 경로 추가
-3. `clasp push`
+## 꼭 기억할 것
 
-### concept 수동 테스트
-- Apps Script에서 `runConceptDaily()` 실행
+- `.env`, Webhook, 관리자 토큰, API 키, DB 백업을 GitHub·Notion에 넣지 않는다.
+- 뉴스는 `DISCORD_WEBHOOK_URL`, 개념은 `CONCEPT_WEBHOOK_URL`을 사용한다.
+- `--generate`는 유료 생성, `--publish`와 `--send`는 실제 발송이다.
+- `unknown` 기록을 지우고 재발송하지 않는다. Discord 메시지를 먼저 확인한다.
+- 예시 학기 날짜를 그대로 활성화하지 않는다.
+- 과거 old origin의 이력·태그를 새 공개 저장소에 push하지 않는다.
 
-정상 결과:
-- Discord에 concept full embed 게시
-- Script Properties progress 갱신
+## 인수인계 완료 체크
 
-## 5. trend 운영 방법
-
-### 채널 설정 변경
-1. `config/channel_interest_map.json` 수정
-2. 운영할 채널은 `enabled: true`
-3. `interests`는 `llm`, `detection-segmentation`, `vision-language` 안에서 설정
-4. `max_topics` 조정
-5. `clasp push`
-
-### trend 수동 테스트
-- Apps Script에서 `runTrendWeekly()` 실행
-
-정상 결과:
-- 해당 채널에 weekly trend 브리핑 게시
-- Google Sheets `trend_history` 갱신
-
-주의:
-- fresh source가 없으면 메시지 없이 skip될 수 있다
-
-## 6. 자주 보는 에러
-
-### concept가 안 올라옴
-- `runConceptDaily()` 실행 로그 확인
-- markdown 포맷 확인
-- Script Properties progress 갱신 확인
-- embed 제한 초과 확인
-
-### trend가 안 올라옴
-- `OPENAI_API_KEY` 확인
-- `DISCORD_WEBHOOK_MAP_JSON` 확인
-- `channel_interest_map.json`의 `webhook_key`와 설정값 일치 확인
-- fresh source 부족이면 skip 가능
-
-## 7. 운영 시작 전 마지막 확인
-
-- [ ] concept 수동 실행 성공
-- [ ] trend 채널별 수동 실행 성공 또는 의도된 skip 확인
-- [ ] GAS 트리거 시간이 concept=평일 9시, trend=월요일 9시 KST로 맞음
-- [ ] 새 concept를 추가하면 `manifest.json`도 같이 수정함
-- [ ] 채널/관심분야 변경 시 `channel_interest_map.json`도 같이 수정함
-
-## 8. 운영자용 한 줄 요약
-
-- concept는 `manifest.json`만 보면 된다
-- trend는 `channel_interest_map.json`만 보면 된다
-- 문제 생기면 먼저 Apps Script `Executions` 로그부터 본다
+- [ ] 정·부 담당자가 각 서비스에 독립적으로 로그인한다.
+- [ ] 문서대로 로컬 검증과 미리보기를 실행했다.
+- [ ] 두 채널·Secrets의 이름·비밀 보관 위치를 확인했다.
+- [ ] 테스트 DB 복구 절차를 이해했다.
+- [ ] 비용 확인과 장애 대응 담당자를 정했다.
+- [ ] GitHub 변경을 Notion에도 반영하고 기준 날짜를 갱신했다.

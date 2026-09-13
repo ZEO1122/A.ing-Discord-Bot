@@ -217,3 +217,13 @@
     ROADMAP.md
     SERVER_SETUP_GUIDE.md
 ```
+
+## 운영 인수인계 문서와 이미지
+
+- `docs/ACCOUNT_MIGRATION.md`: 서비스별 계정 이전·전환 검증
+- `docs/MAINTENANCE_GUIDE.md`: 콘텐츠·설정·문서 수정
+- `docs/OPERATIONS.md`: 장애 대응·DB 복구
+- `docs/ONE_PAGE_OPERATIONS.md`: 새 담당자 시작 안내
+- `docs/archive/gas/`: 기존 운영 문서 3종 보존
+- `docs/images/maintenance/`: 절차 안내 PNG 5장
+- `scripts/docs/render_maintenance_images.py`: 도식 재생성

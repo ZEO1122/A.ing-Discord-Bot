@@ -54,6 +54,11 @@ API Key, Webhook, 관리 토큰은 `.env` 또는 Cloudflare Secrets로만 제공
 
 ## 문서
 
+- [한 장 운영 안내](docs/ONE_PAGE_OPERATIONS.md)
+- [동아리 계정 이전](docs/ACCOUNT_MIGRATION.md)
+- [유지보수 매뉴얼](docs/MAINTENANCE_GUIDE.md)
+- [장애 대응과 복구](docs/OPERATIONS.md)
+
 - [개념 알림 규격과 운영](docs/CONCEPT_NOTIFICATIONS.md)
 - [주간 논문 파이프라인](docs/CLOUDFLARE_WEEKLY_PIPELINE.md)
 - [Cloudflare 기술 검증](docs/CLOUDFLARE_TECH_PROBE.md)
