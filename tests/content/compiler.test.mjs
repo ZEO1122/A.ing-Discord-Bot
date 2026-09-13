@@ -35,9 +35,9 @@ test('rejects unknown and forward prerequisites in the catalog',()=>{
  const missing=structuredClone(catalog);missing.lessons.pop();assert.throws(()=>validateCatalog(missing),/36/);
 });
 test('preserves headings inside code blocks as text and rejects unclosed fences',()=>{
- const changed=markdown.replace('import numpy as np','## 코드 안의 주석\nimport numpy as np');
+ const changed=markdown.replace('## 오늘의 핵심', '## 오늘의 핵심\n```python\n## 코드 안의 주석\nprint(1)\n```');
  assert.equal(parseLesson(changed,catalog.lessons[0]).sections.length,6);
- assert.throws(()=>parseLesson(markdown.replace('```python','```javascript'),catalog.lessons[0]),/code_fence/);
+ assert.throws(()=>parseLesson(changed.replace('```python','```javascript'),catalog.lessons[0]),/code_fence/);
 });
 test('invalidates approved content after any unreviewed modification',async()=>{
  const copy=await mkdtemp(join(tmpdir(),'concept-review-'));

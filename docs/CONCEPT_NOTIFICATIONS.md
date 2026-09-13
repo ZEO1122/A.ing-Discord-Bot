@@ -37,6 +37,9 @@ Frontmatter는 id, title, order, version, status, objective, prerequisites, sour
 6. 복습 질문
 
 본문 설명은 한국어, AI 전문 용어는 영어를 유지한다. 이모지는 넣지 않는다.
+각 섹션은 글머리 기호로 나누고 항목마다 원리·이유·해석을 완결된 문장으로 설명한다.
+코드 실행보다 개념 설명에 비중을 둔다. 작은 예제는 수치 계산이나 상황별 판단 사례로
+작성하고, 공개 알림의 코드 블록은 기본적으로 생략한다. 짧은 수식과 Shape 표기는 허용한다.
 HTML·이미지·LaTeX 전용 블록은 지원하지 않는다. 코드 블록은 python/text를 사용한다.
 학습 목표와 참고 자료는 메타데이터에서 별도 필드로 만들어 총 8개 필드가 된다.
 Discord의 필드별 1,024자·전체 6,000자 제한을 넘으면 잘라서 보내지 않고 빌드를 실패시킨다.
@@ -66,7 +69,9 @@ npm run content:schedule -- config/semesters/example.yaml
 
 preview는 `artifacts/concepts/preview.html` 및 메시지별 JSON을 만든다. HTML은 텍스트와
 줄바꿈 확인용이며 최종 Discord 화면은 테스트 채널에서 확인한다. 예제 실행 명령은
-대표 3편의 Python 코드만 실행하고 결과를 검사한다. Worker는 Python을 실행하지 않는다.
+내부 검산용 Python 예제를 실행하고 결과를 검사한다. 이 코드는 공개 알림에 포함하지 않으며
+현재 Markdown의 문장과 자동으로 동기화되지는 않으므로 콘텐츠 수정 시 수동 대조한다.
+Worker는 Python을 실행하지 않는다.
 
 ## 검토와 배포
 

@@ -1,14 +1,14 @@
 {
-  "release_hash": "27d6379d1c077edb041986b015c718520f9b6e39bc0e4a95a17fa976093be6ab",
+  "release_hash": "785fd3e0c7b9640dede54a573ba28161cd05f759ce0a5b2f729c36767872e1a0",
   "production_ready": false,
   "curriculum_version": 1,
   "lessons": [
     {
       "id": "dl-foundations-01",
       "order": 1,
-      "version": 1,
+      "version": 2,
       "status": "draft",
-      "hash": "ead686a13e21f00510723b36badf02176ff10c55ebf9f91470aad289b5d0a7b8",
+      "hash": "9cbc208bfd0d8560f34f2724b93bec876db00ef50a6e41c669d832b635e503b7",
       "payload": {
         "embeds": [
           {
@@ -21,32 +21,32 @@
               },
               {
                 "name": "오늘의 핵심",
-                "value": "Tensor는 딥러닝에서 수치를 여러 Axis로 배열한 자료 구조입니다. Shape는 각 Axis의 길이를 순서대로 나타냅니다. 값이 같은 개수만큼 있어도 Shape와 Axis의 의미가 다르면 다른 데이터를 표현할 수 있습니다.",
+                "value": "- **Tensor**는 딥러닝에서 데이터를 여러 Axis로 배열해 표현하는 자료 구조입니다. 숫자 자체뿐 아니라 어떤 방향으로 묶였는지가 중요합니다.\n- **Shape**는 각 Axis의 길이를 순서대로 나타냅니다. `(2, 3)`은 첫 Axis에 2개, 두 번째 Axis에 3개가 있다는 뜻이며 전체 원소는 6개입니다.",
                 "inline": false
               },
               {
                 "name": "왜 필요한가?",
-                "value": "Model에 입력하기 전에는 숫자 값뿐 아니라 배열의 구조도 확인해야 합니다. 예를 들어 학생 2명의 시험 점수 3개를 담은 `(2, 3)` 배열에서는 첫 Axis가 학생, 두 번째가 과목입니다. 프로그램은 이 의미를 자동으로 알지 못하므로 우리가 정한 데이터 규약을 일관되게 지켜야 합니다.",
+                "value": "- Model은 사람처럼 데이터의 의미를 읽지 못합니다. 학생 2명의 과목 점수 3개를 담았다면, 우리가 첫 Axis는 학생이고 두 번째는 과목이라는 규약을 정해야 합니다.\n- 이미지도 같은 원리입니다. `(Batch, Channel, Height, Width)` 형식에서는 각각 이미지 수, 색상 채널 수, 세로·가로 크기를 나타냅니다. 사용하는 도구에 따라 순서가 다를 수 있어 입력 규약을 확인해야 합니다.\n- Shape가 맞지 않으면 연산 오류가 나기도 하지만, 실행은 되면서 엉뚱한 방향으로 평균을 계산할 수도 있습니다. 그래서 실행 여부와 데이터 해석을 함께 확인해야 합니다.",
                 "inline": false
               },
               {
                 "name": "작동 원리",
-                "value": "Scalar는 Axis가 없는 수 하나, Vector는 Axis가 하나인 배열, Matrix는 두 개인 배열입니다. `(2, 3)`의 전체 원소 수는 `2 × 3 = 6`입니다. 첫 번째 Axis를 `axis=0`, 두 번째를 `axis=1`로 셉니다.\n\n`sum(axis=0)`은 학생 방향을 합쳐 과목별 합을 만들고, `sum(axis=1)`은 과목 방향을 합쳐 학생별 합을 만듭니다. 연산 뒤 어떤 Axis가 남을지 먼저 예상하면 Shape 오류를 찾기 쉽습니다.",
+                "value": "- **Axis의 개수와 길이는 다릅니다.** Scalar는 Axis가 없는 수 하나, Vector는 Axis가 하나인 배열, Matrix는 두 개인 배열입니다. `(2, 3)`은 Axis가 2개이고 각 길이가 2와 3인 경우입니다.\n- **집계할 Axis는 줄어드는 방향입니다.** 학생·과목 순서의 배열에서 학생 방향인 `axis=0`을 합치면 과목별 합이 남습니다. 과목 방향인 `axis=1`을 합치면 학생별 합이 남습니다. 여기서는 집계한 Axis를 유지하지 않는 경우를 말합니다.\n- **연산 전후의 의미를 연결하세요.** 전체 원소 수는 Shape의 각 길이를 곱해 구하지만, 같은 원소 수를 가진 배열들이 같은 의미를 갖는 것은 아닙니다.",
                 "inline": false
               },
               {
                 "name": "작은 예제로 확인하기",
-                "value": "아래는 NumPy로 확인하는 예제입니다. 아직 GPU나 자동 미분은 필요하지 않습니다.\n\n```python\nimport numpy as np\nx = np.array([[2, 4, 6], [1, 3, 5]])\nprint(x.shape, x.size)      # (2, 3) 6\nprint(x.sum(axis=0))        # [3 7 11]\nprint(x.sum(axis=1))        # [12 9]\n```\n\n`x.reshape(3, 2)`도 원소 6개를 담지만, 이제 각 행을 학생 한 명이라고 해석할 수는 없습니다. Shape 변경이 데이터 의미까지 보존하는지 따로 확인해야 합니다.",
+                "value": "- 학생 A의 점수가 **2, 4, 6**, 학생 B의 점수가 **1, 3, 5**라고 생각해 봅시다. 학생 2명과 과목 3개이므로 Shape는 `(2, 3)`입니다.\n- **과목별 합**이 필요하면 두 학생의 같은 과목 점수를 더합니다. 결과는 **3, 7, 11**이고, 학생 Axis가 줄어 과목 3개가 남습니다.\n- **학생별 합**이 필요하면 한 학생의 세 과목을 더합니다. 결과는 **12, 9**이고, 과목 Axis가 줄어 학생 2명이 남습니다.\n- 먼저 “결과에 학생이 남아야 하는가, 과목이 남아야 하는가?”를 생각하면 어떤 Axis를 집계할지 판단하기 쉽습니다.",
                 "inline": false
               },
               {
                 "name": "자주 하는 오해",
-                "value": "`reshape`는 Axis를 서로 교환하는 `transpose`와 같지 않습니다. 원소 수가 맞아서 실행된다는 사실만으로 올바른 변환이라고 판단하면 안 됩니다. Shape 옆에 `학생, 과목`처럼 각 Axis의 의미를 적어 두는 습관이 도움이 됩니다.",
+                "value": "- **Shape만 보고 Axis의 의미를 알 수는 없습니다.** `(2, 3)`이 학생·과목인지, 시간·센서인지는 데이터 규약에 달려 있습니다. Shape 옆에 각 Axis의 의미를 적어 두세요.\n- **Reshape와 Transpose는 다릅니다.** Reshape는 원소들을 새 Shape로 묶고, Transpose는 Axis 순서를 바꿉니다. `(2, 3)`을 `(3, 2)`로 바꿨다는 사실만으로 학생과 과목을 올바르게 교환했다고 볼 수 없습니다.",
                 "inline": false
               },
               {
                 "name": "복습 질문",
-                "value": "한 반 학생 4명의 과목 점수 5개를 `(4, 5)`에 담았습니다. 학생별 평균과 과목별 평균을 구할 때 각각 어떤 Axis를 줄여야 할까요?",
+                "value": "- 학생 4명의 과목 점수 5개를 `(4, 5)`에 담았습니다. 학생별 평균과 과목별 평균은 각각 어떤 Axis를 줄여야 할까요?\n- 두 결과에 각각 몇 개의 값이 남아야 하는지도 설명해 보세요.",
                 "inline": false
               },
               {
@@ -65,9 +65,9 @@
     {
       "id": "dl-foundations-12",
       "order": 12,
-      "version": 1,
+      "version": 2,
       "status": "draft",
-      "hash": "781a90c0a617107acadc9fd029e789e5518e9e44e5f6bc8bcfc8ebf7d3b56743",
+      "hash": "109aadc845498ea86e1f8ef493439ed797b35b44349db05b090c71c474edaab4",
       "payload": {
         "embeds": [
           {
@@ -75,37 +75,37 @@
             "fields": [
               {
                 "name": "학습 목표",
-                "value": "Chain Rule로 두 Weight의 Gradient를 계산하고 수치 미분으로 검산할 수 있다.",
+                "value": "Chain Rule로 Gradient가 전달되는 과정을 설명하고 Parameter 업데이트와 구분할 수 있다.",
                 "inline": false
               },
               {
                 "name": "오늘의 핵심",
-                "value": "Backpropagation은 Loss에서 출발해 Computational Graph의 각 연산을 거슬러 Gradient를 계산합니다. Parameter를 바꾸는 작업은 Optimizer의 역할입니다. 오늘은 미분 계산과 Parameter 업데이트를 구분하며 작은 신경망을 직접 계산합니다.",
+                "value": "- **Backpropagation**은 Loss에서 출발해 Computational Graph를 거슬러 올라가며 각 Parameter의 Gradient를 계산하는 방법입니다.\n- 핵심은 **Chain Rule로 중간 Gradient를 재사용하는 것**입니다. Gradient 계산은 Backpropagation, 그 값을 이용한 Parameter 변경은 Optimizer의 역할입니다.",
                 "inline": false
               },
               {
                 "name": "왜 필요한가?",
-                "value": "Weight마다 처음부터 전체 식을 미분하면 중복 계산이 많아집니다. Chain Rule을 연산별로 적용하면 이미 구한 중간 Gradient를 앞 단계에 전달할 수 있습니다. Model이 커져도 같은 원리로 각 Parameter에 대한 Loss의 변화율을 구합니다.",
+                "value": "- 신경망의 출력은 여러 연산을 거쳐 만들어집니다. 앞쪽 Weight가 Loss에 미치는 영향을 알려면 중간 연산들을 통해 변화가 어떻게 전달되는지 계산해야 합니다.\n- Weight마다 전체 계산을 처음부터 반복하면 같은 중간 결과를 여러 번 구하게 됩니다. Backpropagation은 출력 쪽에서 계산한 Gradient를 앞 단계에서 재사용해 이런 중복을 줄입니다.\n- 이를 위해 Forward에서 얻은 입력과 중간 활성값 등을 저장합니다. Gradient를 효율적으로 구하는 대신 중간값을 보관할 메모리가 필요합니다.",
                 "inline": false
               },
               {
                 "name": "작동 원리",
-                "value": "`x=2, w1=3, w2=0.5, y=4`로 두고 Bias는 생략합니다. Forward는 `z=w1*x=6`, `h=ReLU(z)=6`, `prediction=w2*h=3`입니다. Loss는 계산을 단순화해 `L=(prediction-y)^2/2=0.5`로 정의합니다.\n\nBackward에서는 `dL/dprediction=-1`, `dL/dw2=-1*6=-6`입니다. 이어서 `dL/dh=-1*0.5=-0.5`이고, `z>0`이므로 ReLU의 미분은 1입니다. 따라서 `dL/dw1=-0.5*1*2=-1`입니다. 출력에 가까운 Gradient를 재사용하며 입력 쪽으로 이동했습니다.",
+                "value": "- **Forward:** 입력에서 예측값과 Loss를 계산합니다. 각 연산의 입력·출력은 뒤에서 해당 연산의 미분을 계산할 때 쓰입니다.\n- **Backward:** 각 연산은 뒤에서 전달받은 Gradient에 자신의 입력에 대한 미분을 연결합니다. Scalar 연산에서는 두 값을 곱하는 Chain Rule로 이해할 수 있습니다.\n- **여러 경로가 만나면 합산:** 같은 Parameter가 여러 경로로 Loss에 영향을 주면, 각 경로를 통해 전달된 Gradient를 더해야 전체 영향을 구할 수 있습니다.\n- **업데이트:** 모든 Gradient를 구한 뒤 Optimizer가 Weight를 바꿉니다. Gradient Descent는 Learning Rate만큼 Gradient의 반대 방향으로 이동합니다.",
                 "inline": false
               },
               {
                 "name": "작은 예제로 확인하기",
-                "value": "수치 미분은 작은 변화 전후의 Loss 차이를 비교하는 검산 도구입니다. 아래 코드는 학습용 Backpropagation을 대체하는 구현이 아닙니다.\n\n```python\ndef loss(w1, w2):\n    prediction = w2 * max(0.0, w1 * 2.0)\n    return (prediction - 4.0) ** 2 / 2\n\neps = 1e-5\nprint((loss(3+eps, .5)-loss(3-eps, .5))/(2*eps))\nprint((loss(3, .5+eps)-loss(3, .5-eps))/(2*eps))\n# 약 -1.0, -6.0\n```",
+                "value": "- 입력이 **2**, 첫 Weight가 **3**, 두 번째 Weight가 **0.5**인 작은 신경망을 생각해 봅시다. 첫 곱셈과 ReLU를 거친 값은 **6**, 최종 예측은 **3**입니다. Bias는 생략합니다.\n- 정답이 **4**이고 Loss를 “예측 오차 제곱의 절반”으로 두면 Loss는 **0.5**입니다. 예측이 정답보다 작으므로 예측값에 대한 Gradient는 **-1**입니다.\n- 두 번째 Weight의 Gradient는 **-1 × 6 = -6**입니다. 첫 Weight까지는 두 번째 Weight **0.5**, ReLU의 미분 **1**, 입력 **2**를 거치므로 **-1 × 0.5 × 1 × 2 = -1**입니다.\n- 이 음수 Gradient는 다른 값을 고정한 채 각 Weight를 조금 늘리면 현재 Loss가 줄어드는 방향임을 뜻합니다. 큰 폭으로 바꿔도 계속 줄어든다는 보장은 아닙니다.",
                 "inline": false
               },
               {
                 "name": "자주 하는 오해",
-                "value": "Gradient가 음수라는 것은 Weight가 나쁘다는 뜻이 아닙니다. 다른 값을 고정했을 때 해당 Weight를 조금 늘리면 Loss가 감소하는 방향이라는 뜻입니다. ReLU가 꺾이는 0에서는 미분 처리에 주의해야 하므로 이 예제는 `z=6`을 사용했습니다.",
+                "value": "- **Gradient가 크다고 더 중요한 Weight라는 뜻은 아닙니다.** Gradient는 현재 입력과 Parameter 값에서의 국소적인 변화율이며 값의 Scale에도 영향을 받습니다.\n- **Backpropagation이 곧 학습 전체는 아닙니다.** 데이터 준비, Loss 정의, Gradient 계산, Optimizer 업데이트가 함께 연결돼야 학습이 진행됩니다.\n- **ReLU는 모든 곳에서 같은 미분을 갖지 않습니다.** 위 예제는 입력이 양수여서 미분이 1입니다. 음수에서는 0이며, 정확히 0에서는 미분값을 따로 정해 처리합니다.",
                 "inline": false
               },
               {
                 "name": "복습 질문",
-                "value": "지금 구한 Gradient로 Learning Rate가 `0.1`인 Gradient Descent를 한 번 적용한다면 `w1`과 `w2`는 각각 어떻게 바뀔까요? 업데이트에는 같은 Forward에서 얻은 Gradient를 사용해 보세요.",
+                "value": "- 계산한 Gradient에 Learning Rate **0.1**인 Gradient Descent를 적용하면 두 Weight는 각각 어떻게 바뀔까요?\n- Backpropagation을 실행했는데 Weight가 그대로라면, 학습 과정에서 어떤 단계가 빠졌을 수 있을까요?",
                 "inline": false
               },
               {
@@ -124,9 +124,9 @@
     {
       "id": "dl-foundations-27",
       "order": 27,
-      "version": 1,
+      "version": 2,
       "status": "draft",
-      "hash": "945c4ec312cb43e0ae22673c7f96c193dd367e9b77ba5720bb88f5cc32579425",
+      "hash": "168b107d45c29551660edf6009b932d57d01a785e32ee2f1829911762a1d8f99",
       "payload": {
         "embeds": [
           {
@@ -139,32 +139,32 @@
               },
               {
                 "name": "오늘의 핵심",
-                "value": "큰 데이터로 오래 학습하기 전에, 작고 일관된 데이터에 Model이 맞춰지는지 확인합니다. 이 검사는 성능 경쟁이 아니라 학습 경로가 연결돼 있는지 확인하는 진단입니다. 작은 데이터의 Loss 감소와 새로운 데이터에서의 Generalization은 별개의 문제입니다.",
+                "value": "- **작은 데이터에 먼저 맞춰보기**는 학습 과정이 제대로 연결되어 있는지 확인하는 진단 방법입니다. 처음부터 전체 데이터로 오래 학습하는 대신, 소수의 고정된 샘플로 원인을 좁힙니다.\n- 작은 데이터의 Training Loss를 줄이는 능력과 새로운 데이터에서의 **Generalization**은 별개입니다. 이 검사는 최종 성능 평가가 아니라 본격적인 학습 전 점검입니다.",
                 "inline": false
               },
               {
                 "name": "왜 필요한가?",
-                "value": "Loss가 줄지 않을 때 Model 크기부터 늘리면 원인을 가리기 쉽습니다. 입력과 Label의 대응, 출력과 Loss의 Shape, Gradient 계산, Optimizer 업데이트 중 하나가 잘못돼도 학습이 멈출 수 있습니다. 통제된 작은 예제에서는 각 단계를 직접 관찰하기 쉽습니다.",
+                "value": "- Loss가 줄지 않는 이유는 Model 크기만이 아닙니다. 입력과 Label이 어긋나거나, 출력과 Loss의 Shape가 잘못되거나, Gradient와 Optimizer가 연결되지 않아도 같은 현상이 나타납니다.\n- 큰 데이터와 무작위 Augmentation을 동시에 사용하면 실행마다 조건이 바뀌어 원인을 찾기 어렵습니다. 작은 샘플과 단순한 조건을 고정하면 무엇이 달라졌는지 관찰하기 쉽습니다.\n- 긴 학습을 반복하기 전에 이 검사를 하면, Model 구조를 불필요하게 복잡하게 만들거나 잘못된 학습을 오래 실행하는 일을 줄일 수 있습니다.",
                 "inline": false
               },
               {
                 "name": "작동 원리",
-                "value": "우선 모순 없는 소수의 샘플을 고정하고 불필요한 Augmentation과 Regularization을 진단 실험에서 잠시 끕니다. 초기 Loss, Gradient 크기, 업데이트 전후 Parameter, 예측값을 차례로 확인합니다. 매번 하나만 바꾸며 원인을 좁힙니다.\n\n작은 데이터에도 맞지 않으면 구현·Optimization·표현 능력을 점검합니다. 잘 맞지만 Validation 성능이 낮다면 데이터 분포나 Overfitting을 살펴봅니다. 단, 작은 데이터에 맞는다는 사실만으로 모든 구현이 올바르다고 증명되지는 않습니다.",
+                "value": "- **조건을 단순화합니다.** Training Set에서 Label이 일관된 소수 샘플을 고정합니다. 진단 실험에서는 불필요한 Augmentation과 Regularization을 잠시 끕니다.\n- **학습 경로를 순서대로 확인합니다.** 입력·Label의 대응, 초기 예측과 Loss, Gradient의 유무·크기, 업데이트 전후 Parameter를 차례로 봅니다. NaN이나 무한대가 나타나는지도 확인합니다.\n- **한 번에 하나씩 바꿉니다.** Learning Rate와 Model 구조를 동시에 바꾸면 무엇이 원인이었는지 알기 어렵습니다. 관찰한 문제에 맞춰 한 조건을 바꾸고 다시 비교합니다.\n- **결과를 나누어 해석합니다.** 작은 데이터에도 맞지 않으면 구현·Optimization·표현 능력을 점검합니다. 작은 데이터에는 맞지만 Validation 성능이 낮다면 Overfitting이나 데이터 분포 차이 등을 살펴봅니다.",
                 "inline": false
               },
               {
                 "name": "작은 예제로 확인하기",
-                "value": "먼저 Bias 없는 Linear Model이 `y=2x`라는 단순 규칙을 학습하는지 봅니다.\n\n```python\nxs, ys = [1.0, 2.0], [2.0, 4.0]\nw = 0.0\nfor _ in range(30):\n    grad = sum((w*x-y)*x for x, y in zip(xs, ys))/2\n    w -= 0.1 * grad\nfinal_loss = sum((w*x-y)**2 for x, y in zip(xs, ys))/4\nprint(round(w, 3), final_loss < 1e-6)\n# 2.0 True\n```\n\nLoss는 `sum((prediction-y)^2)/(2*N)`입니다. Parameter가 전혀 변하지 않는다면 업데이트 식과 Gradient 연결부터 확인합니다.",
+                "value": "- 입력 **1, 2**의 정답이 각각 **2, 4**인 데이터라면, Bias 없는 Linear Model도 Weight가 **2**일 때 두 샘플을 정확하게 표현할 수 있습니다. 먼저 이렇게 답이 분명한 문제를 사용합니다.\n- **Parameter가 전혀 변하지 않는다면:** Gradient가 계산되는지, Optimizer가 해당 Parameter를 업데이트하는지부터 확인합니다.\n- **Parameter는 변하지만 Loss가 커진다면:** Learning Rate가 너무 크거나 업데이트 방향이 잘못됐는지 점검합니다. 입력과 Label의 대응도 다시 확인합니다.\n- **작은 샘플에는 맞는다면:** 전체 Training Set으로 확장하고 Validation 성능을 확인합니다. 작은 문제를 풀었다는 사실은 다음 검증으로 넘어갈 근거이지 최종 성능의 보장은 아닙니다.",
                 "inline": false
               },
               {
                 "name": "자주 하는 오해",
-                "value": "진단을 위해 Training Loss를 낮추는 실험은 Test Set에 맞추라는 뜻이 아닙니다. Test Set은 따로 보존하고, 진단을 마치면 원래의 Regularization·데이터 분리·Validation 절차로 돌아가야 합니다. 모순된 Label이나 Model 용량 부족도 작은 데이터 적합을 방해할 수 있습니다.",
+                "value": "- **작은 데이터에 못 맞춘다고 반드시 코드 오류는 아닙니다.** 같은 입력에 서로 모순된 Label이 있거나 Model의 표현 능력이 부족한 경우도 있습니다.\n- **잘 맞춘다고 모든 구현이 맞는 것도 아닙니다.** 일부 오류는 작은 샘플에서 드러나지 않으므로 전체 학습과 데이터 분리 검증이 필요합니다.\n- **Test Set으로 맞춰보는 실험이 아닙니다.** Test Set은 보존하고, 진단이 끝나면 원래의 Regularization과 Validation 절차로 돌아가야 합니다.",
                 "inline": false
               },
               {
                 "name": "복습 질문",
-                "value": "Parameter는 바뀌는데 Loss가 계속 커진다면 무엇을 먼저 확인하겠습니까? Learning Rate, Gradient 부호, Label 대응 중 하나씩 통제해 확인하는 순서를 제안해 보세요.",
+                "value": "- Parameter는 바뀌지만 Loss가 계속 커진다면, 어떤 조건부터 하나씩 확인하겠습니까? 그 순서를 선택한 이유도 설명해 보세요.\n- 작은 Training Set에서 Loss가 충분히 줄었는데 Validation 성능이 낮다면, 왜 Model이 전혀 학습하지 못한다고 단정하면 안 될까요?",
                 "inline": false
               },
               {
