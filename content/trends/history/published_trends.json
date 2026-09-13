@@ -1,0 +1,71 @@
+{
+  "1486941167823097937:llm": [
+    {
+      "title": "실데이터 차트·의료·음성 번역 LLM 평가 동향",
+      "source_title": "RealChart2Code: Advancing Chart-to-Code Generation with Real Data and Multi-Task Evaluation",
+      "url": "https://arxiv.org/abs/2603.25804",
+      "published_at": "2026-03-30",
+      "posted_at": "2026-03-30T07:25:28.334908+00:00"
+    },
+    {
+      "title": "실데이터 차트·의료·음성 번역 LLM 평가 동향",
+      "source_title": "Doctorina MedBench: End-to-End Evaluation of Agent-Based Medical AI",
+      "url": "https://arxiv.org/abs/2603.25821",
+      "published_at": "2026-03-30",
+      "posted_at": "2026-03-30T07:25:28.334908+00:00"
+    },
+    {
+      "title": "실데이터 차트·의료·음성 번역 LLM 평가 동향",
+      "source_title": "Gradient-Informed Training for Low-Resource Multilingual Speech Translation",
+      "url": "https://arxiv.org/abs/2603.25836",
+      "published_at": "2026-03-30",
+      "posted_at": "2026-03-30T07:25:28.334908+00:00"
+    }
+  ],
+  "1487039215421231135:detection-segmentation": [
+    {
+      "title": "Detection·Segmentation 관점의 세 논문 브리핑",
+      "source_title": "A-SelecT: Automatic Timestep Selection for Diffusion Transformer Representation Learning",
+      "url": "https://arxiv.org/abs/2603.25758",
+      "published_at": "2026-03-30",
+      "posted_at": "2026-03-30T07:27:08.483486+00:00"
+    },
+    {
+      "title": "Detection·Segmentation 관점의 세 논문 브리핑",
+      "source_title": "A Survey of OCR Evaluation Methods and Metrics and the Invisibility of Historical Documents",
+      "url": "https://arxiv.org/abs/2603.25761",
+      "published_at": "2026-03-30",
+      "posted_at": "2026-03-30T07:27:08.483486+00:00"
+    },
+    {
+      "title": "Detection·Segmentation 관점의 세 논문 브리핑",
+      "source_title": "Focus-to-Perceive Representation Learning: A Cognition-Inspired Hierarchical Framework for Endoscopic Video Analysis",
+      "url": "https://arxiv.org/abs/2603.25778",
+      "published_at": "2026-03-30",
+      "posted_at": "2026-03-30T07:27:08.483486+00:00"
+    }
+  ],
+  "1487039321058971668:vision-language": [
+    {
+      "title": "Vision-Language 최신 세 논문 브리핑",
+      "source_title": "A Survey of OCR Evaluation Methods and Metrics and the Invisibility of Historical Documents",
+      "url": "https://arxiv.org/abs/2603.25761",
+      "published_at": "2026-03-30",
+      "posted_at": "2026-03-30T07:28:18.240161+00:00"
+    },
+    {
+      "title": "Vision-Language 최신 세 논문 브리핑",
+      "source_title": "ArtHOI: Taming Foundation Models for Monocular 4D Reconstruction of Hand-Articulated-Object Interactions",
+      "url": "https://arxiv.org/abs/2603.25791",
+      "published_at": "2026-03-30",
+      "posted_at": "2026-03-30T07:28:18.240161+00:00"
+    },
+    {
+      "title": "Vision-Language 최신 세 논문 브리핑",
+      "source_title": "GazeQwen: Lightweight Gaze-Conditioned LLM Modulation for Streaming Video Understanding",
+      "url": "https://arxiv.org/abs/2603.25841",
+      "published_at": "2026-03-30",
+      "posted_at": "2026-03-30T07:28:18.240161+00:00"
+    }
+  ]
+}

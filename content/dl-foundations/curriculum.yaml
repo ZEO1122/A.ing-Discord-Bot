@@ -1,0 +1,185 @@
+id: dl-foundations
+version: 1
+weeks: 12
+per_week: 3
+lessons:
+  - id: dl-foundations-01
+    order: 1
+    title: "Tensor·Shape·Axis"
+    file: lessons/01-tensors-and-shapes.md
+    prerequisites: []
+  - id: dl-foundations-02
+    order: 2
+    title: "Matrix Multiplication과 Broadcasting"
+    file: lessons/02-matmul-and-broadcasting.md
+    prerequisites: [dl-foundations-01]
+  - id: dl-foundations-03
+    order: 3
+    title: "Parameter·Model·Forward Pass"
+    file: lessons/03-parameters-and-forward.md
+    prerequisites: [dl-foundations-01, dl-foundations-02]
+  - id: dl-foundations-04
+    order: 4
+    title: "Linear Layer와 Bias"
+    file: lessons/04-linear-layer.md
+    prerequisites: [dl-foundations-02, dl-foundations-03]
+  - id: dl-foundations-05
+    order: 5
+    title: "Activation Function이 필요한 이유"
+    file: lessons/05-activation-purpose.md
+    prerequisites: [dl-foundations-04]
+  - id: dl-foundations-06
+    order: 6
+    title: "ReLU·Sigmoid·Tanh 비교"
+    file: lessons/06-activation-comparison.md
+    prerequisites: [dl-foundations-05]
+  - id: dl-foundations-07
+    order: 7
+    title: "Regression과 MSE"
+    file: lessons/07-mse.md
+    prerequisites: [dl-foundations-03]
+  - id: dl-foundations-08
+    order: 8
+    title: "Classification·Logits·Softmax"
+    file: lessons/08-logits-and-softmax.md
+    prerequisites: [dl-foundations-03, dl-foundations-06]
+  - id: dl-foundations-09
+    order: 9
+    title: "Cross-Entropy와 확률 해석"
+    file: lessons/09-cross-entropy.md
+    prerequisites: [dl-foundations-08]
+  - id: dl-foundations-10
+    order: 10
+    title: "Derivative·Partial Derivative·Gradient"
+    file: lessons/10-gradient.md
+    prerequisites: [dl-foundations-07]
+  - id: dl-foundations-11
+    order: 11
+    title: "Chain Rule과 Computational Graph"
+    file: lessons/11-chain-rule.md
+    prerequisites: [dl-foundations-10]
+  - id: dl-foundations-12
+    order: 12
+    title: "작은 신경망의 Backpropagation 계산"
+    file: lessons/12-backpropagation.md
+    prerequisites: [dl-foundations-04, dl-foundations-06, dl-foundations-07, dl-foundations-11]
+  - id: dl-foundations-13
+    order: 13
+    title: "Gradient Descent와 Learning Rate"
+    file: lessons/13-gradient-descent.md
+    prerequisites: [dl-foundations-10, dl-foundations-12]
+  - id: dl-foundations-14
+    order: 14
+    title: "Batch·Mini-batch·SGD"
+    file: lessons/14-mini-batch.md
+    prerequisites: [dl-foundations-13]
+  - id: dl-foundations-15
+    order: 15
+    title: "학습 루프: Forward·Backward·Update"
+    file: lessons/15-training-loop.md
+    prerequisites: [dl-foundations-03, dl-foundations-12, dl-foundations-14]
+  - id: dl-foundations-16
+    order: 16
+    title: "Train·Validation·Test와 Data Leakage"
+    file: lessons/16-data-splits.md
+    prerequisites: [dl-foundations-15]
+  - id: dl-foundations-17
+    order: 17
+    title: "Overfitting·Underfitting·Learning Curve"
+    file: lessons/17-learning-curves.md
+    prerequisites: [dl-foundations-16]
+  - id: dl-foundations-18
+    order: 18
+    title: "Accuracy·Precision·Recall·F1"
+    file: lessons/18-metrics.md
+    prerequisites: [dl-foundations-08, dl-foundations-16]
+  - id: dl-foundations-19
+    order: 19
+    title: "L2 Regularization과 Weight Decay"
+    file: lessons/19-weight-decay.md
+    prerequisites: [dl-foundations-13, dl-foundations-17]
+  - id: dl-foundations-20
+    order: 20
+    title: "Dropout"
+    file: lessons/20-dropout.md
+    prerequisites: [dl-foundations-06, dl-foundations-17]
+  - id: dl-foundations-21
+    order: 21
+    title: "Early Stopping과 Data Augmentation"
+    file: lessons/21-early-stopping.md
+    prerequisites: [dl-foundations-16, dl-foundations-17]
+  - id: dl-foundations-22
+    order: 22
+    title: "Momentum"
+    file: lessons/22-momentum.md
+    prerequisites: [dl-foundations-13, dl-foundations-14]
+  - id: dl-foundations-23
+    order: 23
+    title: "AdaGrad·RMSProp·Adam의 연결"
+    file: lessons/23-adam.md
+    prerequisites: [dl-foundations-22]
+  - id: dl-foundations-24
+    order: 24
+    title: "Learning Rate Schedule과 Warmup"
+    file: lessons/24-lr-schedule.md
+    prerequisites: [dl-foundations-13, dl-foundations-23]
+  - id: dl-foundations-25
+    order: 25
+    title: "Vanishing·Exploding Gradient와 Initialization"
+    file: lessons/25-initialization.md
+    prerequisites: [dl-foundations-06, dl-foundations-12]
+  - id: dl-foundations-26
+    order: 26
+    title: "Batch Normalization과 Layer Normalization"
+    file: lessons/26-normalization.md
+    prerequisites: [dl-foundations-01, dl-foundations-14, dl-foundations-25]
+  - id: dl-foundations-27
+    order: 27
+    title: "학습 디버깅: 작은 데이터에 먼저 맞춰보기"
+    file: lessons/27-training-debugging.md
+    prerequisites: [dl-foundations-15, dl-foundations-17, dl-foundations-18, dl-foundations-19, dl-foundations-20, dl-foundations-24, dl-foundations-25, dl-foundations-26]
+  - id: dl-foundations-28
+    order: 28
+    title: "Convolution과 Parameter Sharing"
+    file: lessons/28-convolution.md
+    prerequisites: [dl-foundations-02, dl-foundations-04]
+  - id: dl-foundations-29
+    order: 29
+    title: "Stride·Padding·Receptive Field·Pooling"
+    file: lessons/29-receptive-field.md
+    prerequisites: [dl-foundations-28]
+  - id: dl-foundations-30
+    order: 30
+    title: "Residual Connection과 깊은 CNN"
+    file: lessons/30-residual-connection.md
+    prerequisites: [dl-foundations-12, dl-foundations-25, dl-foundations-28, dl-foundations-29]
+  - id: dl-foundations-31
+    order: 31
+    title: "Sequence 표현과 RNN"
+    file: lessons/31-rnn.md
+    prerequisites: [dl-foundations-03, dl-foundations-04, dl-foundations-06]
+  - id: dl-foundations-32
+    order: 32
+    title: "BPTT와 장기 의존성 문제"
+    file: lessons/32-bptt.md
+    prerequisites: [dl-foundations-12, dl-foundations-25, dl-foundations-31]
+  - id: dl-foundations-33
+    order: 33
+    title: "LSTM·GRU의 Gate"
+    file: lessons/33-gated-rnn.md
+    prerequisites: [dl-foundations-32]
+  - id: dl-foundations-34
+    order: 34
+    title: "Attention과 Query·Key·Value"
+    file: lessons/34-attention.md
+    prerequisites: [dl-foundations-02, dl-foundations-08, dl-foundations-31]
+  - id: dl-foundations-35
+    order: 35
+    title: "Self-Attention·Multi-head·Position"
+    file: lessons/35-self-attention.md
+    prerequisites: [dl-foundations-34]
+  - id: dl-foundations-36
+    order: 36
+    title: "Transformer 전체 흐름과 과정 종합 복습"
+    file: lessons/36-transformer.md
+    prerequisites: [dl-foundations-09, dl-foundations-15, dl-foundations-26, dl-foundations-30, dl-foundations-35]

@@ -1,0 +1,58 @@
+{
+  "name": "discord-bot-clean",
+  "version": "1.0.0",
+  "description": "이 저장소는 **딥러닝 개념 브리핑 + 세부 분야 동향 브리핑 + 퀴즈 포함 게시물**을 Discord로 자동 발행하기 위한 프로젝트다.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "clasp:login": "clasp login",
+    "clasp:status": "clasp status",
+    "clasp:push": "clasp push",
+    "clasp:pull": "clasp pull",
+    "clasp:open": "clasp open",
+    "cf:typecheck": "tsc -p cloudflare/tsconfig.json",
+    "cf:test": "vitest run --config cloudflare/vitest.config.mts",
+    "cf:dev": "wrangler dev --config cloudflare/wrangler.jsonc",
+    "cf:build": "wrangler deploy --dry-run --config cloudflare/wrangler.jsonc --outdir dist",
+    "cf:probe": "node cloudflare/scripts/probe.mjs",
+    "cf:secrets": "node cloudflare/scripts/secrets.mjs",
+    "content:validate": "node scripts/content/cli.mjs validate",
+    "content:build": "node scripts/content/cli.mjs build",
+    "content:preview": "node scripts/content/cli.mjs preview",
+    "content:schedule": "node scripts/content/cli.mjs schedule",
+    "content:test": "node --test tests/content/*.test.mjs",
+    "content:examples": "python3 scripts/content/check_examples.py",
+    "cf:deploy": "npm run content:build && wrangler deploy --config cloudflare/wrangler.jsonc",
+    "content:remote": "node scripts/content/remote.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZEO1122/Discord-Bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ZEO1122/Discord-Bot/issues"
+  },
+  "homepage": "https://github.com/ZEO1122/Discord-Bot#readme",
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "^1.1.8",
+    "@cloudflare/workers-types": "^5.20260911.1",
+    "@google/clasp": "^3.3.0",
+    "@types/node": "^24.13.4",
+    "esbuild": "^0.28.1",
+    "miniflare": "^5.20260911.0-alpha",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.11",
+    "wrangler": "^4.131.1",
+    "yaml": "^2.9.1"
+  },
+  "dependencies": {
+    "entities": "^8.1.0"
+  }
+}

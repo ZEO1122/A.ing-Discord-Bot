@@ -1,0 +1,41 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "discord-study-probe",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-13",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "workers_dev": true,
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "LIVE_ENABLED": "false",
+    "OPENAI_MODEL": "gpt-4.1-mini-2025-04-14",
+    "DELIVERY_ENABLED": "false",
+    "SCHEDULE_ENABLED": "false",
+    "CONCEPT_TEST_ENABLED": "false",
+    "CONCEPT_SCHEDULE_ENABLED": "false"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "discord-study-probe",
+      "database_id": "800a9ad1-823b-466e-8c69-4230e002d712",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "workflows": [
+    {
+      "binding": "PROBE",
+      "name": "discord-study-probe",
+      "class_name": "PaperProbe"
+    },
+    {
+      "binding": "WEEKLY",
+      "name": "discord-study-weekly",
+      "class_name": "WeeklyPipeline"
+    }
+  ]
+}

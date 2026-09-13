@@ -1,0 +1,12 @@
+**/**
+!.clasp.json
+!appsscript.json
+!Code.gs
+!ConfigService.gs
+!GitHubService.gs
+!DiscordService.gs
+!OpenAIService.gs
+!HistoryService.gs
+!Utils.gs
+!ConceptService.gs
+!TrendService.gs

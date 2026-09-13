@@ -1,0 +1,184 @@
+{
+  "release_hash": "27d6379d1c077edb041986b015c718520f9b6e39bc0e4a95a17fa976093be6ab",
+  "production_ready": false,
+  "curriculum_version": 1,
+  "lessons": [
+    {
+      "id": "dl-foundations-01",
+      "order": 1,
+      "version": 1,
+      "status": "draft",
+      "hash": "ead686a13e21f00510723b36badf02176ff10c55ebf9f91470aad289b5d0a7b8",
+      "payload": {
+        "embeds": [
+          {
+            "title": "딥러닝 기초 01/36 · Tensor·Shape·Axis",
+            "fields": [
+              {
+                "name": "학습 목표",
+                "value": "Shape를 보고 각 Axis의 의미와 전체 원소 수를 설명할 수 있다.",
+                "inline": false
+              },
+              {
+                "name": "오늘의 핵심",
+                "value": "Tensor는 딥러닝에서 수치를 여러 Axis로 배열한 자료 구조입니다. Shape는 각 Axis의 길이를 순서대로 나타냅니다. 값이 같은 개수만큼 있어도 Shape와 Axis의 의미가 다르면 다른 데이터를 표현할 수 있습니다.",
+                "inline": false
+              },
+              {
+                "name": "왜 필요한가?",
+                "value": "Model에 입력하기 전에는 숫자 값뿐 아니라 배열의 구조도 확인해야 합니다. 예를 들어 학생 2명의 시험 점수 3개를 담은 `(2, 3)` 배열에서는 첫 Axis가 학생, 두 번째가 과목입니다. 프로그램은 이 의미를 자동으로 알지 못하므로 우리가 정한 데이터 규약을 일관되게 지켜야 합니다.",
+                "inline": false
+              },
+              {
+                "name": "작동 원리",
+                "value": "Scalar는 Axis가 없는 수 하나, Vector는 Axis가 하나인 배열, Matrix는 두 개인 배열입니다. `(2, 3)`의 전체 원소 수는 `2 × 3 = 6`입니다. 첫 번째 Axis를 `axis=0`, 두 번째를 `axis=1`로 셉니다.\n\n`sum(axis=0)`은 학생 방향을 합쳐 과목별 합을 만들고, `sum(axis=1)`은 과목 방향을 합쳐 학생별 합을 만듭니다. 연산 뒤 어떤 Axis가 남을지 먼저 예상하면 Shape 오류를 찾기 쉽습니다.",
+                "inline": false
+              },
+              {
+                "name": "작은 예제로 확인하기",
+                "value": "아래는 NumPy로 확인하는 예제입니다. 아직 GPU나 자동 미분은 필요하지 않습니다.\n\n```python\nimport numpy as np\nx = np.array([[2, 4, 6], [1, 3, 5]])\nprint(x.shape, x.size)      # (2, 3) 6\nprint(x.sum(axis=0))        # [3 7 11]\nprint(x.sum(axis=1))        # [12 9]\n```\n\n`x.reshape(3, 2)`도 원소 6개를 담지만, 이제 각 행을 학생 한 명이라고 해석할 수는 없습니다. Shape 변경이 데이터 의미까지 보존하는지 따로 확인해야 합니다.",
+                "inline": false
+              },
+              {
+                "name": "자주 하는 오해",
+                "value": "`reshape`는 Axis를 서로 교환하는 `transpose`와 같지 않습니다. 원소 수가 맞아서 실행된다는 사실만으로 올바른 변환이라고 판단하면 안 됩니다. Shape 옆에 `학생, 과목`처럼 각 Axis의 의미를 적어 두는 습관이 도움이 됩니다.",
+                "inline": false
+              },
+              {
+                "name": "복습 질문",
+                "value": "한 반 학생 4명의 과목 점수 5개를 `(4, 5)`에 담았습니다. 학생별 평균과 과목별 평균을 구할 때 각각 어떤 Axis를 줄여야 할까요?",
+                "inline": false
+              },
+              {
+                "name": "참고 자료",
+                "value": "[Dive into Deep Learning · 2.1 Data Manipulation](https://d2l.ai/chapter_preliminaries/ndarray.html)",
+                "inline": false
+              }
+            ]
+          }
+        ],
+        "allowed_mentions": {
+          "parse": []
+        }
+      }
+    },
+    {
+      "id": "dl-foundations-12",
+      "order": 12,
+      "version": 1,
+      "status": "draft",
+      "hash": "781a90c0a617107acadc9fd029e789e5518e9e44e5f6bc8bcfc8ebf7d3b56743",
+      "payload": {
+        "embeds": [
+          {
+            "title": "딥러닝 기초 12/36 · 작은 신경망의 Backpropagation 계산",
+            "fields": [
+              {
+                "name": "학습 목표",
+                "value": "Chain Rule로 두 Weight의 Gradient를 계산하고 수치 미분으로 검산할 수 있다.",
+                "inline": false
+              },
+              {
+                "name": "오늘의 핵심",
+                "value": "Backpropagation은 Loss에서 출발해 Computational Graph의 각 연산을 거슬러 Gradient를 계산합니다. Parameter를 바꾸는 작업은 Optimizer의 역할입니다. 오늘은 미분 계산과 Parameter 업데이트를 구분하며 작은 신경망을 직접 계산합니다.",
+                "inline": false
+              },
+              {
+                "name": "왜 필요한가?",
+                "value": "Weight마다 처음부터 전체 식을 미분하면 중복 계산이 많아집니다. Chain Rule을 연산별로 적용하면 이미 구한 중간 Gradient를 앞 단계에 전달할 수 있습니다. Model이 커져도 같은 원리로 각 Parameter에 대한 Loss의 변화율을 구합니다.",
+                "inline": false
+              },
+              {
+                "name": "작동 원리",
+                "value": "`x=2, w1=3, w2=0.5, y=4`로 두고 Bias는 생략합니다. Forward는 `z=w1*x=6`, `h=ReLU(z)=6`, `prediction=w2*h=3`입니다. Loss는 계산을 단순화해 `L=(prediction-y)^2/2=0.5`로 정의합니다.\n\nBackward에서는 `dL/dprediction=-1`, `dL/dw2=-1*6=-6`입니다. 이어서 `dL/dh=-1*0.5=-0.5`이고, `z>0`이므로 ReLU의 미분은 1입니다. 따라서 `dL/dw1=-0.5*1*2=-1`입니다. 출력에 가까운 Gradient를 재사용하며 입력 쪽으로 이동했습니다.",
+                "inline": false
+              },
+              {
+                "name": "작은 예제로 확인하기",
+                "value": "수치 미분은 작은 변화 전후의 Loss 차이를 비교하는 검산 도구입니다. 아래 코드는 학습용 Backpropagation을 대체하는 구현이 아닙니다.\n\n```python\ndef loss(w1, w2):\n    prediction = w2 * max(0.0, w1 * 2.0)\n    return (prediction - 4.0) ** 2 / 2\n\neps = 1e-5\nprint((loss(3+eps, .5)-loss(3-eps, .5))/(2*eps))\nprint((loss(3, .5+eps)-loss(3, .5-eps))/(2*eps))\n# 약 -1.0, -6.0\n```",
+                "inline": false
+              },
+              {
+                "name": "자주 하는 오해",
+                "value": "Gradient가 음수라는 것은 Weight가 나쁘다는 뜻이 아닙니다. 다른 값을 고정했을 때 해당 Weight를 조금 늘리면 Loss가 감소하는 방향이라는 뜻입니다. ReLU가 꺾이는 0에서는 미분 처리에 주의해야 하므로 이 예제는 `z=6`을 사용했습니다.",
+                "inline": false
+              },
+              {
+                "name": "복습 질문",
+                "value": "지금 구한 Gradient로 Learning Rate가 `0.1`인 Gradient Descent를 한 번 적용한다면 `w1`과 `w2`는 각각 어떻게 바뀔까요? 업데이트에는 같은 Forward에서 얻은 Gradient를 사용해 보세요.",
+                "inline": false
+              },
+              {
+                "name": "참고 자료",
+                "value": "[Dive into Deep Learning · 5.3 Forward Propagation, Backward Propagation, and Computational Graphs](https://d2l.ai/chapter_multilayer-perceptrons/backprop.html)\n[밑바닥부터 시작하는 딥러닝 · ch05 · Backpropagation 구현 예제](https://github.com/kchcoo/WegraLee-deep-learning-from-scratch/tree/master/ch05)",
+                "inline": false
+              }
+            ]
+          }
+        ],
+        "allowed_mentions": {
+          "parse": []
+        }
+      }
+    },
+    {
+      "id": "dl-foundations-27",
+      "order": 27,
+      "version": 1,
+      "status": "draft",
+      "hash": "945c4ec312cb43e0ae22673c7f96c193dd367e9b77ba5720bb88f5cc32579425",
+      "payload": {
+        "embeds": [
+          {
+            "title": "딥러닝 기초 27/36 · 학습 디버깅: 작은 데이터에 먼저 맞춰보기",
+            "fields": [
+              {
+                "name": "학습 목표",
+                "value": "작은 데이터 학습 결과를 통해 구현 오류와 Generalization 문제를 분리할 수 있다.",
+                "inline": false
+              },
+              {
+                "name": "오늘의 핵심",
+                "value": "큰 데이터로 오래 학습하기 전에, 작고 일관된 데이터에 Model이 맞춰지는지 확인합니다. 이 검사는 성능 경쟁이 아니라 학습 경로가 연결돼 있는지 확인하는 진단입니다. 작은 데이터의 Loss 감소와 새로운 데이터에서의 Generalization은 별개의 문제입니다.",
+                "inline": false
+              },
+              {
+                "name": "왜 필요한가?",
+                "value": "Loss가 줄지 않을 때 Model 크기부터 늘리면 원인을 가리기 쉽습니다. 입력과 Label의 대응, 출력과 Loss의 Shape, Gradient 계산, Optimizer 업데이트 중 하나가 잘못돼도 학습이 멈출 수 있습니다. 통제된 작은 예제에서는 각 단계를 직접 관찰하기 쉽습니다.",
+                "inline": false
+              },
+              {
+                "name": "작동 원리",
+                "value": "우선 모순 없는 소수의 샘플을 고정하고 불필요한 Augmentation과 Regularization을 진단 실험에서 잠시 끕니다. 초기 Loss, Gradient 크기, 업데이트 전후 Parameter, 예측값을 차례로 확인합니다. 매번 하나만 바꾸며 원인을 좁힙니다.\n\n작은 데이터에도 맞지 않으면 구현·Optimization·표현 능력을 점검합니다. 잘 맞지만 Validation 성능이 낮다면 데이터 분포나 Overfitting을 살펴봅니다. 단, 작은 데이터에 맞는다는 사실만으로 모든 구현이 올바르다고 증명되지는 않습니다.",
+                "inline": false
+              },
+              {
+                "name": "작은 예제로 확인하기",
+                "value": "먼저 Bias 없는 Linear Model이 `y=2x`라는 단순 규칙을 학습하는지 봅니다.\n\n```python\nxs, ys = [1.0, 2.0], [2.0, 4.0]\nw = 0.0\nfor _ in range(30):\n    grad = sum((w*x-y)*x for x, y in zip(xs, ys))/2\n    w -= 0.1 * grad\nfinal_loss = sum((w*x-y)**2 for x, y in zip(xs, ys))/4\nprint(round(w, 3), final_loss < 1e-6)\n# 2.0 True\n```\n\nLoss는 `sum((prediction-y)^2)/(2*N)`입니다. Parameter가 전혀 변하지 않는다면 업데이트 식과 Gradient 연결부터 확인합니다.",
+                "inline": false
+              },
+              {
+                "name": "자주 하는 오해",
+                "value": "진단을 위해 Training Loss를 낮추는 실험은 Test Set에 맞추라는 뜻이 아닙니다. Test Set은 따로 보존하고, 진단을 마치면 원래의 Regularization·데이터 분리·Validation 절차로 돌아가야 합니다. 모순된 Label이나 Model 용량 부족도 작은 데이터 적합을 방해할 수 있습니다.",
+                "inline": false
+              },
+              {
+                "name": "복습 질문",
+                "value": "Parameter는 바뀌는데 Loss가 계속 커진다면 무엇을 먼저 확인하겠습니까? Learning Rate, Gradient 부호, Label 대응 중 하나씩 통제해 확인하는 순서를 제안해 보세요.",
+                "inline": false
+              },
+              {
+                "name": "참고 자료",
+                "value": "[Deep Learning · 11.5 Debugging Strategies](https://www.deeplearningbook.org/contents/guidelines.html)",
+                "inline": false
+              }
+            ]
+          }
+        ],
+        "allowed_mentions": {
+          "parse": []
+        }
+      }
+    }
+  ]
+}

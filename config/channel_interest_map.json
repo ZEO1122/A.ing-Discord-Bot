@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "timezone": "Asia/Seoul",
+  "channels": [
+    {
+      "channel_key": "llm-brief",
+      "channel_id": "1486941167823097937",
+      "webhook_key": "llm-brief",
+      "enabled": true,
+      "interests": ["llm"],
+      "max_topics": 1
+    },
+    {
+      "channel_key": "detection-segmentation-brief",
+      "channel_id": "1487039215421231135",
+      "webhook_key": "detection-segmentation-brief",
+      "enabled": true,
+      "interests": ["detection-segmentation"],
+      "max_topics": 1
+    },
+    {
+      "channel_key": "vision-language-brief",
+      "channel_id": "1487039321058971668",
+      "webhook_key": "vision-language-brief",
+      "enabled": true,
+      "interests": ["vision-language"],
+      "max_topics": 1
+    }
+  ]
+}
