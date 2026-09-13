@@ -1,5 +1,7 @@
 # 유지보수 매뉴얼
 
+[실제 설정 화면 12장으로 따라 하기](ACCOUNT_SETUP_SCREENSHOTS.md) — GitHub·Cloudflare·OpenAI의 클릭 순서와 입력 항목.
+
 확인일: 2026-09-13. Cloudflare 구현 기준. 처음 맡은 담당자는 [한 장 운영 안내](ONE_PAGE_OPERATIONS.md)부터 읽는다. 계정 이전은 [별도 절차](ACCOUNT_MIGRATION.md)를 따른다.
 
 ## 1. 현재 운영 상태

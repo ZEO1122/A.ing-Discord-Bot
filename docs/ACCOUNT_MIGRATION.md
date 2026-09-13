@@ -1,5 +1,7 @@
 # 동아리 계정 이전 가이드
 
+[실제 설정 화면 12장으로 따라 하기](ACCOUNT_SETUP_SCREENSHOTS.md) — GitHub·Cloudflare·OpenAI의 클릭 순서와 입력 항목.
+
 확인일: 2026-09-13. 이 문서는 이전 실행 절차이며, 계정 이전 완료 기록이 아니다. 현재 실행 경로는 Cloudflare이며 GAS와 Python 서버 운영 문서는 과거 자료다.
 
 ## 1. 이전 대상과 담당자

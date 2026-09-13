@@ -54,6 +54,8 @@ API Key, Webhook, 관리 토큰은 `.env` 또는 Cloudflare Secrets로만 제공
 
 ## 문서
 
+- [실제 계정 설정 화면 가이드](docs/ACCOUNT_SETUP_SCREENSHOTS.md)
+
 - [한 장 운영 안내](docs/ONE_PAGE_OPERATIONS.md)
 - [동아리 계정 이전](docs/ACCOUNT_MIGRATION.md)
 - [유지보수 매뉴얼](docs/MAINTENANCE_GUIDE.md)

@@ -227,3 +227,6 @@
 - `docs/archive/gas/`: 기존 운영 문서 3종 보존
 - `docs/images/maintenance/`: 절차 안내 PNG 5장
 - `scripts/docs/render_maintenance_images.py`: 도식 재생성
+
+- `docs/ACCOUNT_SETUP_SCREENSHOTS.md`: Computer Use 실제 설정 화면 12단계
+- `docs/images/account-setup/`: GitHub·Cloudflare·OpenAI 실제 캡처 12장

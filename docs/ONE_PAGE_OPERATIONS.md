@@ -1,5 +1,7 @@
 # 한 장 운영 안내
 
+[실제 설정 화면 12장으로 따라 하기](ACCOUNT_SETUP_SCREENSHOTS.md) — GitHub·Cloudflare·OpenAI의 클릭 순서와 입력 항목.
+
 확인일: 2026-09-13. 새 담당자가 먼저 읽는 문서다.
 
 ## 지금 상태
